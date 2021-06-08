@@ -20,6 +20,4 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="record_audio">Record audio</string>
-
-    <string name="ar_cloud_client_id">PUT YOUR AR CLOUD CLIENT ID HERE</string>
 </resources>
