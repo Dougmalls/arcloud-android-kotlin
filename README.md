@@ -11,9 +11,8 @@ Quick start examples for [Banuba SDK on Android](https://docs.banuba.com/docs/an
 
 # AR Cloud
 
- 1. Get the latest BanubaARCloud SDK archive for Android and the client CloudId. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com).
- 2. Copy `ar-cloud-*.aar` library into `quickstart-android/libs/` directory.
- 3. Put your client CloudId [here](https://github.com/Banuba/quickstart-android/blob/master/effect_player_realtime_preview/src/main/res/values/strings.xml#L24).
+ 1. Get the latest BanubaARCloud and BanubaTokenStorage SDK archives for Android. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com).
+ 2. Copy received `aar` libraries into `quickstart-android/libs/` directory.
 
 # Contributing
 

@@ -67,7 +67,7 @@ dependencies {
     implementation files(":banuba_sdk-release@aar")
 
     /*These dependencies are required for ArCloud*/
-    implementation 'org.koin:koin-androidx-viewmodel:2.1.6'
+    implementation 'org.koin:koin-androidx-viewmodel:2.2.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
