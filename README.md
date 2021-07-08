@@ -1,18 +1,18 @@
-Quick start examples for [Banuba SDK on Android](https://docs.banuba.com/docs/android/android_overview).
+Quick start examples for [Banuba SDK on Android](https://docs.banuba.com/face-ar-sdk/android/android_overview).
 
 # Getting Started
 
 1. Get the latest Banuba SDK archive for Android and the client token. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com).
 2. Copy `aar` files from the Banuba SDK archive into `libs` dir:
-    `BNBEffectPlayer/bin/banuba_sdk/banuba_sdk-release.aar` => `quickstart-android/libs/`
-    `BNBEffectPlayer/banuba_effect_player-release.aar` => `quickstart-android/libs/`
-3. Copy and Paste your client token into appropriate section of `quickstart-android/client_token/com/banuba/sdk/example/common/BanubaClientToken.kt`
+    `BNBEffectPlayer/bin/banuba_sdk/banuba_sdk-release.aar` => `arcloud-android-kotlin/libs/`
+    `BNBEffectPlayer/banuba_effect_player-release.aar` => `arcloud-android-kotlin/libs/`
+3. Copy and Paste your client token into appropriate section of `arcloud-android-kotlin/client_token/com/banuba/sdk/example/common/BanubaClientToken.kt`
 4. Open the project in Android Studio and run the necessary target using the usual steps.
 
 # AR Cloud
 
- 1. Get the latest BanubaARCloud and BanubaTokenStorage SDK archives for Android. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com).
- 2. Copy received `aar` libraries into `quickstart-android/libs/` directory.
+ 1. Get the latest BanubaARCloud and BanubaTokenStorage SDK archives for Android. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com). The latest versions of libraries can be found here: [BanubaARCloud](https://github.com/Banuba/banuba-ar/packages/665586), [BanubaTokenStorage](https://github.com/Banuba/banuba-ve-sdk/packages/665418).
+ 2. Copy received `aar` libraries into `arcloud-android-kotlin/libs/` directory.
 
 # Contributing
 
