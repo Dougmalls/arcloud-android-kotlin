@@ -11,8 +11,9 @@ Quick start examples for [Banuba SDK on Android](https://docs.banuba.com/face-ar
 
 # AR Cloud
 
- 1. Get the latest BanubaARCloud and BanubaTokenStorage SDK archives for Android. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com). The latest versions of libraries can be found here: [BanubaARCloud](https://github.com/Banuba/banuba-ar/packages/665586), [BanubaTokenStorage](https://github.com/Banuba/banuba-ve-sdk/packages/665418).
+ 1. Get the latest BanubaARCloud archive for Android and AR cloud URL. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com). The latest version of library can be found here: [BanubaARCloud](https://github.com/Banuba/banuba-ar/packages/665586).
  2. Copy received `aar` libraries into `arcloud-android-kotlin/libs/` directory.
+ 3. Copy and Paste your AR clound URL into appropriate section of `arcloud-android-kotlin/client_token/com/banuba/sdk/example/common/BanubaClientToken.kt`
 
 # Contributing
 

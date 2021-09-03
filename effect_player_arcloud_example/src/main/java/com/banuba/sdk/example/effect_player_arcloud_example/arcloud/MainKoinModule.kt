@@ -1,6 +1,7 @@
 package com.banuba.sdk.example.effect_player_arcloud_example.arcloud
 
 import com.banuba.sdk.arcloud.data.source.ArEffectsRepositoryProvider
+import com.banuba.sdk.example.common.BANUBA_AR_CLOUD_URL
 import com.banuba.sdk.example.common.BANUBA_CLIENT_TOKEN
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -12,6 +13,10 @@ class MainKoinModule {
 
         single(named("banubaLocalToken"), override = true) {
             BANUBA_CLIENT_TOKEN
+        }
+
+        single(named("arEffectsCloudUrl"), override = true) {
+            BANUBA_AR_CLOUD_URL
         }
 
         single(createdAtStart = true, override = true) {
