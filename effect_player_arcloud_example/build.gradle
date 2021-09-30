@@ -17,7 +17,6 @@ android {
         }
     }
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.banuba.sdk.example.effect_player_arcloud_example"
