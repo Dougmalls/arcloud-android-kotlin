@@ -46,10 +46,9 @@ class ArCloudMasksActivity : AppCompatActivity() {
             override fun onEffectSelected(checkableEffect: EffectWrapper, position: Int) {
                 effectsViewModel.setLastEffect(checkableEffect)
                 effect = if (position == 0) {
-                    banubaSdkManager.effectManager.unload(effect)
+                    banubaSdkManager.effectManager.loadAsync("")
                     null
                 } else {
-                    effect?.let { banubaSdkManager.effectManager.unload(it) }
                     banubaSdkManager.effectManager.loadAsync(checkableEffect.effect.uri)
                 }
             }
@@ -69,7 +68,6 @@ class ArCloudMasksActivity : AppCompatActivity() {
             effectsAdapter?.submitList(effectsList)
         })
         effectsViewModel.effectDownloadingSuccessData.observe(this, Observer { downloadingEffectWrapper ->
-            effect?.let { banubaSdkManager.effectManager.unload(it) }
             effect = banubaSdkManager.effectManager.loadAsync(downloadingEffectWrapper.effect.uri)
         })
 
