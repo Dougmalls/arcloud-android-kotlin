@@ -139,6 +139,7 @@ function Effect() {
     var self = this;
 
     this.init = function() {
+        Api.meshfxMsg("spawn", 11, 0, "plane2.bsm2");
         Api.meshfxMsg("spawn", 9, 0, "!glfx_FACE");
         Api.meshfxMsg("shaderVec4", 0, 0, currSet === 2 ? "1.0" : "0.0");
         spawnMeshes();
@@ -149,11 +150,11 @@ function Effect() {
         Api.playVideo("frx", true, 1);
         Api.playSound("music.ogg", true, 1);
 
-        Api.showHint("Tap");
+        // Api.showHint("Tap");
         timeOut(3000, function(){
-            Api.hideHint();
+            // Api.hideHint();
+            Api.meshfxMsg("del", 11);
         });
-
         Api.showRecordButton();
     };
 
@@ -163,17 +164,28 @@ function Effect() {
         self.init();
     };
 
+    this.delTap = function(){
+        // Api.hideHint();
+        Api.meshfxMsg("del", 11);
+    };
+
     this.faceActions = [timeUpdate];
     this.noFaceActions = [timeUpdate];
 
-    this.videoRecordStartActions = [];
+    this.videoRecordStartActions = [this.delTap];
     this.videoRecordFinishActions = [];
     this.videoRecordDiscardActions = [this.restart];
 }
 
+function onTakePhotoStart(){
+    // Api.hideHint();
+    Api.meshfxMsg("del", 11);
+};
+
 function onTouchesBegan() {
     ++tapsCount;
-    Api.hideHint();
+    // Api.hideHint();
+    Api.meshfxMsg("del", 11);
     effectTrigger();
 }
 
@@ -182,7 +194,7 @@ function effectTrigger() {
         Api.playSound("sfx_1.ogg", false, 1);
         playChangeEffect();
 
-        timeOut(1000, changeSet);
+        timeOut(2000, changeSet);
 
         timeOut(2000, function () {
             isAnimPlay = false;
