@@ -16,7 +16,7 @@ Please use [v0.x](../../tree/v0.x) branch for SDK version 0.x (e.g. v0.38).
 
  1. Get the latest BanubaARCloud archive for Android and AR cloud URL. Please fill in our form on [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com). The latest version of library can be found here: [BanubaARCloud](https://github.com/Banuba/banuba-ar/packages/665586).
  2. Copy received `aar` libraries into `arcloud-android-kotlin/libs/` directory.
- 3. Copy and Paste your AR cloud URL into appropriate section of [`BANUBA_AR_CLOUD_URL`](client_token/com/banuba/sdk/example/common/BanubaClientToken.kt#L8)
+ 3. Copy and Paste your AR cloud URL into appropriate section of [`BANUBA_AR_CLOUD_URL`](client_token/com/banuba/sdk/example/common/BanubaClientToken.kt#L8) or use predefined Demo bucket
 
 # Contributing
 
