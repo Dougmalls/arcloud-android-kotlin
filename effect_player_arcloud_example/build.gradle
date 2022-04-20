@@ -70,6 +70,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.4.0'
 
     // Banuba SDK dependencies
+    implementation "com.banuba.sdk:banuba_sdk:1+"
     implementation fileTree(dir: '../libs', include: ['*.aar'])
 
     /*These dependencies are required for ArCloud*/
