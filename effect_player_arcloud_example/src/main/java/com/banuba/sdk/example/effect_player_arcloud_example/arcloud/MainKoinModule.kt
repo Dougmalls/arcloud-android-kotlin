@@ -11,15 +11,15 @@ class MainKoinModule {
 
     val module = module {
 
-        single(named("banubaLocalToken"), override = true) {
+        single(named("banubaLocalToken")) {
             BANUBA_CLIENT_TOKEN
         }
 
-        single(named("arEffectsCloudUrl"), override = true) {
+        single(named("arEffectsCloudUrl")) {
             BANUBA_AR_CLOUD_URL
         }
 
-        single(createdAtStart = true, override = true) {
+        single(createdAtStart = true) {
             ArEffectsRepositoryProvider(
                 arEffectsRepository = get(named("backendArEffectsRepository")),
                 ioDispatcher = get(named("ioDispatcher"))
