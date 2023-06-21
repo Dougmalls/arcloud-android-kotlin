@@ -50,6 +50,9 @@ class ArCloudMasksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ar_cloud_effects)
 
+        player.use(CameraInput(cameraDevice))
+        player.use(surfaceOutput)
+
         // Set custom OnTouchListener to change mask style.
         surfaceView.setOnTouchListener(PlayerTouchListener(this, player))
 
@@ -89,9 +92,6 @@ class ArCloudMasksActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        player.use(CameraInput(cameraDevice))
-        player.use(surfaceOutput)
-
         if (allPermissionsGranted()) {
             cameraDevice.start()
         } else {
@@ -121,10 +121,15 @@ class ArCloudMasksActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        cameraDevice.stop()
         super.onStop()
+    }
+
+    override fun onDestroy() {
         cameraDevice.close()
         surfaceOutput.close()
         player.close()
+        super.onDestroy()
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {

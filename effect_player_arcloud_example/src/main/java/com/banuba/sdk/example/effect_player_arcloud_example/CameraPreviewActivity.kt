@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.banuba.sdk.input.CameraDevice
-import com.banuba.sdk.input.CameraDeviceConfigurator
 import com.banuba.sdk.input.CameraInput
 import com.banuba.sdk.output.SurfaceOutput
 import com.banuba.sdk.player.Player
@@ -38,13 +37,13 @@ class CameraPreviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_preview)
+
+        player.use(CameraInput(cameraDevice))
+        player.use(surfaceOutput)
     }
 
     override fun onStart() {
         super.onStart()
-        player.use(CameraInput(cameraDevice))
-        player.use(surfaceOutput)
-
         if (allPermissionsGranted()) {
             cameraDevice.start()
         } else {
@@ -76,10 +75,15 @@ class CameraPreviewActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        cameraDevice.stop()
         super.onStop()
+    }
+
+    override fun onDestroy() {
         cameraDevice.close()
         surfaceOutput.close()
         player.close()
+        super.onDestroy()
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {

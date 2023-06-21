@@ -56,6 +56,10 @@ class VideoRecordingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_recording)
 
+        player.use(CameraInput(cameraDevice))
+        player.addOutput(surfaceOutput)
+        player.addOutput(videoOutput)
+
         recordActionButton.setOnClickListener {
             isRecording = !isRecording
 
@@ -72,10 +76,6 @@ class VideoRecordingActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        player.use(CameraInput(cameraDevice))
-        player.addOutput(surfaceOutput)
-        player.addOutput(videoOutput)
-
         if (allPermissionsGranted()) {
             cameraDevice.start()
         } else {
@@ -107,11 +107,22 @@ class VideoRecordingActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        cameraDevice.stop()
+
+        if (isRecording) {
+            isRecording = false
+            updateUiState()
+            videoOutput.stopRecordingAndWaitForFinish()
+        }
         super.onStop()
+    }
+
+    override fun onDestroy() {
         cameraDevice.close()
         surfaceOutput.close()
         videoOutput.close()
         player.close()
+        super.onDestroy()
     }
 
     private fun recordAudio() = recordAudioSwitch.isChecked
