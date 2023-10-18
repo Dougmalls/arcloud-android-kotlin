@@ -135,11 +135,14 @@ var glassesTextures = [
 
 var isAnimPlay = false;
 
+
 function Effect() {
     var self = this;
 
     this.init = function() {
-        Api.meshfxMsg("spawn", 11, 0, "plane2.bsm2");
+        if(Api.getPlatform() == "ios" || Api.getPlatform() == "android" || Api.getPlatform() == "macOS")
+            Api.meshfxMsg("spawn", 11, 0, "plane2.bsm2");
+
         Api.meshfxMsg("spawn", 9, 0, "!glfx_FACE");
         Api.meshfxMsg("shaderVec4", 0, 0, currSet === 2 ? "1.0" : "0.0");
         spawnMeshes();
@@ -236,11 +239,12 @@ Mesh.prototype.delete = function() {
 
 function spawnMeshes() {
     meshes[currSet].forEach(function(mesh) {
+
+        mesh.spawn();
+
         if (mesh.name === "physics.bsm2") {
             applyPhysics();
         } 
-
-        mesh.spawn();
 
         if (mesh.name === "Glasses.bsm2") {
             Api.meshfxMsg("tex", mesh.id, 0, glassesTextures[currSet]);
@@ -279,6 +283,7 @@ function timeOut(delay, callback) {
 }
 
 function applyPhysics() {
+    bnb.log("PHYSICS!")
     Api.meshfxMsg("dynGravity", 3, 0, "0 -700 0");
     Api.meshfxMsg("dynImass", 3, 0, "group_phy");
     Api.meshfxMsg("dynImass", 3, 0, "joint_tail_root");
