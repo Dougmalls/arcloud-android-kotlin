@@ -10,10 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.banuba.sdk.effect_player.Effect
 import com.banuba.sdk.example.effect_player_arcloud_example.*
-import com.banuba.sdk.manager.BanubaSdkManager
-import com.banuba.sdk.manager.BanubaSdkTouchListener
+import com.banuba.sdk.input.CameraDevice
+import com.banuba.sdk.input.CameraInput
+import com.banuba.sdk.output.SurfaceOutput
+import com.banuba.sdk.player.Player
+import com.banuba.sdk.player.PlayerTouchListener
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_ar_cloud_effects.*
+import kotlinx.android.synthetic.main.activity_camera_preview.surfaceView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ArCloudMasksActivity : AppCompatActivity() {
@@ -26,8 +30,16 @@ class ArCloudMasksActivity : AppCompatActivity() {
 
     private val effectsViewModel by viewModel<EffectsViewModel>()
 
-    private val banubaSdkManager by lazy(LazyThreadSafetyMode.NONE) {
-        BanubaSdkManager(applicationContext)
+    private val player by lazy(LazyThreadSafetyMode.NONE) {
+        Player()
+    }
+
+    private val cameraDevice by lazy(LazyThreadSafetyMode.NONE) {
+        CameraDevice(requireNotNull(this.applicationContext), this@ArCloudMasksActivity)
+    }
+
+    private val surfaceOutput by lazy(LazyThreadSafetyMode.NONE) {
+        SurfaceOutput(surfaceView.holder)
     }
 
     var effectsAdapter: EffectsAdapter? = null
@@ -38,18 +50,21 @@ class ArCloudMasksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ar_cloud_effects)
 
+        player.use(CameraInput(cameraDevice))
+        player.use(surfaceOutput)
+
         // Set custom OnTouchListener to change mask style.
-        surfaceView.setOnTouchListener(BanubaSdkTouchListener(this, banubaSdkManager.effectPlayer))
+        surfaceView.setOnTouchListener(PlayerTouchListener(this, player))
 
         effectsAdapter = EffectsAdapter(Glide.with(this))
         effectsAdapter?.actionCallback = object : EffectsAdapter.ActionCallback {
             override fun onEffectSelected(checkableEffect: EffectWrapper, position: Int) {
                 effectsViewModel.setLastEffect(checkableEffect)
                 effect = if (position == 0) {
-                    banubaSdkManager.effectManager.loadAsync("")
+                    player.loadAsync("")
                     null
                 } else {
-                    banubaSdkManager.effectManager.loadAsync(checkableEffect.effect.uri)
+                    player.loadAsync(checkableEffect.effect.uri)
                 }
             }
 
@@ -68,7 +83,7 @@ class ArCloudMasksActivity : AppCompatActivity() {
             effectsAdapter?.submitList(effectsList)
         })
         effectsViewModel.effectDownloadingSuccessData.observe(this, Observer { downloadingEffectWrapper ->
-            effect = banubaSdkManager.effectManager.loadAsync(downloadingEffectWrapper.effect.uri)
+            effect = player.loadAsync(downloadingEffectWrapper.effect.uri)
         })
 
 
@@ -77,10 +92,8 @@ class ArCloudMasksActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        banubaSdkManager.attachSurface(surfaceView)
-
         if (allPermissionsGranted()) {
-            banubaSdkManager.openCamera()
+            cameraDevice.start()
         } else {
             requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_APPLY_MASK_PERMISSION)
         }
@@ -90,26 +103,33 @@ class ArCloudMasksActivity : AppCompatActivity() {
         requestCode: Int, permissions: Array<String>, results: IntArray
     ) {
         if (requireAllPermissionsGranted(permissions, results)) {
-            banubaSdkManager.openCamera()
+            cameraDevice.start()
         } else {
             finish()
         }
+        super.onRequestPermissionsResult(requestCode, permissions, results)
     }
 
     override fun onResume() {
         super.onResume()
-        banubaSdkManager.effectPlayer.playbackPlay()
+        player.play()
     }
 
     override fun onPause() {
         super.onPause()
-        banubaSdkManager.effectPlayer.playbackPause()
+        player.pause()
     }
 
     override fun onStop() {
+        cameraDevice.stop()
         super.onStop()
-        banubaSdkManager.releaseSurface()
-        banubaSdkManager.closeCamera()
+    }
+
+    override fun onDestroy() {
+        cameraDevice.close()
+        surfaceOutput.close()
+        player.close()
+        super.onDestroy()
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
