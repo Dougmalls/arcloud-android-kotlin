@@ -8,6 +8,8 @@ androidExtensions {
 }
 
 android {
+    namespace = "com.banuba.sdk.example.effect_player_arcloud_example"
+
     signingConfigs {
         demoSigning {
             keyAlias 'key0'
@@ -21,7 +23,7 @@ android {
     defaultConfig {
         applicationId "com.banuba.sdk.example.effect_player_arcloud_example"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -34,6 +36,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.demoSigning
         }
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     // NOTE! Add if your project uses Kotlin as main language

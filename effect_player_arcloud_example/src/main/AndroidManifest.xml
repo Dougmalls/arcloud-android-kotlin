@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true"
         android:largeHeap="true">
-        <activity android:name="com.banuba.sdk.example.effect_player_arcloud_example.MainActivity">
+        <activity android:name="com.banuba.sdk.example.effect_player_arcloud_example.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
