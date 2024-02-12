@@ -1,5 +1,3 @@
-# This example is deprecated and unmaintained. Please, rely on [other](https://github.com/Banuba?q=android&type=all&language=&sort=) android examples
-
 Quick start examples for [Banuba SDK on Android](https://docs.banuba.com/face-ar-sdk-v1/android/android_overview).  
   
 # Getting Started
